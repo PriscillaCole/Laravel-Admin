@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
+use Admin;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
             ->description('Description...')
             ->row(Dashboard::title())
             ->row(function (Row $row) {
-
+            if(Admin::user()->isRole('administrator')){
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::environment());
                 });
@@ -29,6 +30,10 @@ class HomeController extends Controller
                 $row->column(4, function (Column $column) {
                     $column->append(Dashboard::dependencies());
                 });
+            }
+            if(Admin::user()->isRole('customer')){
+
+            }
             });
     }
 }

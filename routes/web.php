@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PasswordResetController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/registration', [RegisterController::class, 'register'])->name('registration');
+Route::post('/register', [RegisterController::class, 'postRegistration'])->name('register');
+
+Route::get('forget-password', [PasswordResetController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [PasswordResetController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password', [PasswordResetController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [PasswordResetController::class, 'submitResetPasswordForm'])->name('reset.password.post');

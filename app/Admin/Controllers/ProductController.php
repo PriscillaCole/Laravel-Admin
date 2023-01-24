@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use App\Models\Category;
 
 class ProductController extends AdminController
 {
@@ -72,6 +73,13 @@ class ProductController extends AdminController
         $form->text('stock', __('Stock'));
         $form->decimal('price', __('Price'));
 
+        // $cats = [];
+        // foreach (Category::all() as $key => $value) {
+        //     $cats[$value->id] = $value->category. "$value->id";
+        // }
+        // $form->multipleSelect('categories','Category')->options($cats);
+    
+        $form->multipleSelect('categories','Category')->options(Category::all()->pluck('category','id'));
         return $form;
     }
 }
